@@ -4,6 +4,7 @@ var express     = require('express');
 var bodyParser  = require('body-parser');
 var expect      = require('chai').expect;
 var cors        = require('cors');
+let helmet      = require('helmet');
 
 var apiRoutes         = require('./routes/api.js');
 var fccTestingRoutes  = require('./routes/fcctesting.js');
@@ -17,6 +18,13 @@ app.use(cors({origin: '*'})); //For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//1, 2 & 3 - iFrame of my own, DNS Prefetch & Send referrer to my pages only
+app.use(helmet());
+app.use(helmet.frameguard({ action: 'sameorigin' }));
+app.use(helmet.referrerPolicy({ policy: 'same-origin' }))
+
+
 
 //Sample front-end
 app.route('/b/:board/')
@@ -39,9 +47,6 @@ fccTestingRoutes(app);
 
 //Routing for API 
 apiRoutes(app);
-
-//Sample Front-end
-
     
 //404 Not Found Middleware
 app.use(function(req, res, next) {
