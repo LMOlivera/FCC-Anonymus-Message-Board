@@ -1,9 +1,5 @@
 /*
-*
-*
 *       Complete the API routing below
-*
-*
 */
 
 'use strict';
