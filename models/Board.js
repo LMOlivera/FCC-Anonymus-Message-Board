@@ -13,7 +13,9 @@ let boardSchema = new Schema({
       replies: [
         {
           text: {type: String},
-          delete_password: {type: String}
+          created_on: {type: Date},
+          delete_password: {type: String},
+          reported: {type: Boolean}
         }
       ]
     }
