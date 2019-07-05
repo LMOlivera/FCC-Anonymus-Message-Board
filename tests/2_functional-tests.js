@@ -1,9 +1,3 @@
-/*
-*       FILL IN EACH FUNCTIONAL TEST BELOW COMPLETELY
-*       -----[Keep the tests in the same order!]-----
-*       (if additional are added, keep them at the very end!)
-*/
-
 var chaiHttp = require('chai-http');
 var chai = require('chai');
 var assert = chai.assert;
@@ -16,7 +10,21 @@ suite('Functional Tests', function() {
   suite('API ROUTING FOR /api/threads/:board', function() {
     
     suite('POST', function() {
-      
+      test('New Thread in an unexistent Board', function(done) {
+       chai.request(server)
+        .post('/api/threads/FunctionalTesting')
+        .send({
+         name: "FunctionalTesting",
+         text: "This is a test",
+         delete_password: "QA"
+        })
+        .end(function(err, res){
+         assert.equal(res.status, 200);
+         assert.equal(res.body.thread[0].text, "This is a test");
+         assert.equal(res.body.thread[0].delete_password, "QA");
+         done();
+        });
+      });
     });
     
     suite('GET', function() {
@@ -30,8 +38,6 @@ suite('Functional Tests', function() {
     suite('PUT', function() {
       
     });
-    
-
   });
   
   suite('API ROUTING FOR /api/replies/:board', function() {
@@ -53,5 +59,4 @@ suite('Functional Tests', function() {
     });
     
   });
-
 });

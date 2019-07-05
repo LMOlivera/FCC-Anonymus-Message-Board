@@ -5,7 +5,7 @@ module.exports = function (app) {
   
   app.route('/api/threads/:board')
   .post((req, res)=>{//4 - POST a thread
-    let boardName = req.body.board;
+    let boardName = req.body.board || req.params.board;
     Board.findOne({name: boardName}, (err, data) =>{
       if(data==null){
         let b = new Board({name: boardName,
