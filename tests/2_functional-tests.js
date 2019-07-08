@@ -28,35 +28,25 @@ suite('Functional Tests', function() {
     });
     
     suite('GET', function() {
-      
-    });
-    
-    suite('DELETE', function() {
-      
-    });
-    
-    suite('PUT', function() {
-      
-    });
-  });
-  
-  suite('API ROUTING FOR /api/replies/:board', function() {
-    
-    suite('POST', function() {
-      
-    });
-    
-    suite('GET', function() {
-      
+      test('Get Threads from Board', function(done) {
+       chai.request(server)
+        .get('/api/threads/FunctionalTesting')
+        .end(function(err, res){
+         assert.equal(res.status, 200);
+         assert.equal(res.body[0].text, "This is a test");
+         assert.equal(res.body[0].delete_password, undefined);
+         assert.equal(Array.isArray(res.body[0].replies), true);
+         done();
+        });
+      });
     });
     
     suite('PUT', function() {
-      
+      //This makes no sense, I have to check the ID everytime I create a new Thread
     });
     
     suite('DELETE', function() {
-      
+      //This makes no sense, I have to check the ID everytime I create a new Board
     });
-    
   });
 });
